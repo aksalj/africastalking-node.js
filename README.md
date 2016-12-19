@@ -220,7 +220,7 @@ app.post('/callback/voice', new AfricasTalking.VOICE.CallHandler((phoneCall) => 
     
     var response = voice.builder()
         .say("UI", {voice: "woman"})
-        .play("DEd)
+        .play("DEd")
         .getDigits("SW", {say:{voice: "man"}})
         .build();
         
