@@ -180,9 +180,90 @@ var voice = AfricasTalking.VOICE;
   });
 ```
 
-#### [Handle call](http://docs.africastalking.com/voice/callhandler) **TODO Build helpers
+#### [Handle call](http://docs.africastalking.com/voice/callhandler)
 
-check issue [#15](https://github.com/AfricasTalkingLtd/africastalking-node.js/issues/15)
+If you are using connect-like frameworks (*express*), you could use the middleware `AfricasTalking.VOICE.CallHandler(handler)`:
+
+`handler(phoneCall)`: Process the phone call session and call `phoneCall.respond()` when done.
+
+- `phoneCall`: contains the following user data sent by Africa's Talking servers: `sessionId`, `serviceCode`, `phoneNumber` and `text`.
+    - `session`: This is a unique identifier that we will generate during each call session
+    - `isActive`: This lets your application know whether the call is in session state
+    - `isComplete`: This lets your application know whether the has ended
+    - `isInbound`: 	Inbound calls are initiated by a phone user
+    - `isOutbound`: Outbound calls are initiated by your application
+    - `caller`: The phone number of the phone user in the call. The phone numbers are all in international format, starting with a + (such as +254711XXXYYY)
+    - `callee`: Your Africa's Talking phone number. This will also be presented in international format, starting with a **+**
+    - `digits`: This variable contains the digits that a user enters in response to a getDigits request
+    - `recordingUrl`: The URL of the recording made for this call
+    - `duration`: The duration of the call in seconds.
+    - `currency`: The currency used to bill this call (e.g KES, USD, GBP)
+    - `amount`: The total cost of the call
+    - `respond(error, data)`: Respond to a call with xml from `VOICE.XMLBuilder`.
+       
+       
+```javascript
+
+// example (express)
+
+app.post('/callback/voice', new AfricasTalking.VOICE.CallHandler((phoneCall) => {
+    
+    var session = phoneCall.session;
+    //...
+    
+    if (phoneCall.isActive) {
+        //...
+    } else if (phoneCall.isCompleted){
+        //...
+    }
+    
+    
+    var response = voice.builder()
+        .say("UI", {voice: "woman"})
+        .play("DEd)
+        .getDigits("SW", {say:{voice: "man"}})
+        .build();
+        
+    phoneCall.respond(null, response);
+   
+    
+}));
+
+```
+
+
+`AfricasTalking.VOICE.XMLBuilder`: Build response to phone calls
+
+```javascript
+
+// inside a phone call handler...
+
+var builder = new AfricasTalking.VOICE.XMLBuilder();
+
+var xml = builder
+        .say()
+        .play()
+        .record()
+        .enqueue()
+        //...
+        // when done
+        .build()
+
+phoneCall.respond(null, xml);
+
+```
+
+- `say(text, options)`:
+- `play(url)`:
+- `getDigits(text, options)`:
+- `dial(options)`:
+- `conference()`:
+- `record(options)`:
+- `enqueue(options)`:
+- `dequeue(options)`:
+- `reject()`:
+- `redirect(url)`:
+
 
 
 ### Airtime
