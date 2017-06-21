@@ -1,5 +1,7 @@
 # Official Africa's Talking Node.js API wrapper
 
+![Download](https://img.shields.io/npm/v/africastalking.svg)
+
 The Africa's Talking Node API wrapper provides convenient access to the Africa's Talking API from applications written in server-side JavaScript.
 
 ## Documentation
