@@ -1,9 +1,8 @@
-'use strict';
+/* eslint-disable */
+const should = require('should');
+const fixtures = require('./fixtures.local');
 
-var should = require('should');
-var fixtures = require('./fixtures.local');
-
-var AfricasTalking, sms;
+let AfricasTalking, sms;
 
 describe('SMS', function () {
     this.timeout(5000);

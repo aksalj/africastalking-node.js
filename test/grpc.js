@@ -1,6 +1,4 @@
-'use strict';
-
-const should = require('should');
+const should = require('should'); // eslint-disable-line
 const validate = require('validate.js');
 const fixtures = require('./fixtures.local');
 const ATServer = require('../lib/server');
@@ -14,7 +12,7 @@ describe('gRPC', function () {
         server.start();
     });
 
-    it('generates, authenticates and revokes tokens', function (done) {
+    it('generates, authenticates and revokes tokens', (done) => {
         const token = server.generateToken();
         token.should.be.a.string();
         const valid = server.authenticate(token);
@@ -22,20 +20,20 @@ describe('gRPC', function () {
         server.revoke(token);
         const invalid = server.authenticate(token);
         invalid.should.be.exactly(false);
+        done();
     });
 
-    it('has an instance of the lib', function (done) {
-        var p = server.getATInstance().fetchAccount();
+    it('has an instance of the lib', (done) => {
+        const p = server.getATInstance().fetchAccount();
         validate.isPromise(p).should.be.exactly(true);
 
-        p.then(function (resp) {
+        p.then((resp) => {
             resp.should.have.property('UserData');
             done();
-
-        }).catch(function (error) {
+        }).catch((error) => {
             console.log(error);
             done();
         });
-    });   
+    });
 });
 
