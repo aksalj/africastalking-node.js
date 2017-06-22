@@ -37,6 +37,11 @@
     "validate.js": "^0.9.0"
   },
   "devDependencies": {
+    "eslint": "^4.0.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-mocha": "^4.11.0",
+    "eslint-plugin-security": "^1.4.0",
     "express": "^4.13.4",
     "istanbul": "^0.4.2",
     "mocha": "^2.3.4",

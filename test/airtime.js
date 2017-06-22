@@ -1,13 +1,11 @@
-'use strict';
+/* eslint-disable */
+const should = require('should');
+const validate = require('validate.js');
+const fixtures = require('./fixtures.local');
 
-var should = require('should');
-var validate = require('validate.js');
-var fixtures = require('./fixtures.local');
+let AfricasTalking, airtime;
 
-var AfricasTalking, airtime;
-
-describe('AIRTIME', function(){
-
+describe('Airtime', function (){
     this.timeout(5000);
 
     before(function () {
@@ -16,7 +14,7 @@ describe('AIRTIME', function(){
     });
 
     describe('validation', function () {
-        var options = {};
+        const options = {};
 
         it('#send() cannot be empty', function () {
             return airtime.send(options)
